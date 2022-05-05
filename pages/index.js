@@ -1,61 +1,89 @@
 //
 import "semantic-ui-css/semantic.min.css";
 import Head from "next/head";
+import { useEffect, useRef } from "react";
 
 //
 import useSWR from "swr";
 import {
-  Container,
+  Segment,
+  Message,
+  Dimmer,
+  Loader,
   Button,
-  Header,
-  Input,
-  List,
-  Checkbox,
+  Card,
 } from "semantic-ui-react";
 
 //
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const apiFetcher = (...args) => fetch(...args).then((res) => res.json());
+const storageKeys = { userid: "user-id", other: "other" };
 
-//
-function useAPI(url) {
-  const { data, error } = useSWR(url, fetcher);
-
-  return {
-    rawdata: data,
-    isLoading: !error && !data,
-    isError: error,
-  };
+function ChooseUser(username) {
+  localStorage.setItem(storageKeys.userid, username);
 }
 
-function UserTest() {
-  const { rawdata, isLoading, isError } = useAPI(`/api/hello`);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error...</p>;
-
-  return <p>{rawdata.name}</p>;
-}
-
-function ListAPITest() {
-  const { rawdata, isLoading, isError } = useAPI(`/api/list`);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error...</p>;
-  if (!rawdata) return <p>Wait...</p>;
-
-  const textlist = (
-    <List>
-      {rawdata.items.map((item) => (
-        <List.Item key={item.label}>
-          <Checkbox label={item.label}></Checkbox>
-        </List.Item>
-      ))}
-    </List>
+function ErrorMessage(error) {
+  return (
+    <Message>
+      <Message.Header>Oh bother!</Message.Header>
+      <p>{error.toString()}</p>
+    </Message>
   );
-  return textlist;
+}
+
+function LoginScreen(allUsers) {
+  const usersData = allUsers.users.map((user) => (
+    <Card key={user.id}>
+      <Card.Content>
+        <Card.Header>{user.id}</Card.Header>
+      </Card.Content>
+      <Card.Content extra>
+        <div className="ui  button">
+          <Button basic color="green" onClick={() => ChooseUser(user.id)}>
+            Login
+          </Button>
+        </div>
+      </Card.Content>
+    </Card>
+  ));
+
+  return <Segment>{usersData}</Segment>;
 }
 
 export default function Home() {
+  const { data: storedUser, error: error1 } = useSWR(
+    storageKeys.userid,
+    (key) => {
+      const value = localStorage.getItem(key);
+      return value;
+    }
+  );
+
+  const shouldFetchAllUsers = !!storedUser === false;
+
+  const { data: allUsers, error: error2 } = useSWR(
+    shouldFetchAllUsers ? "/api/all-users" : null,
+    apiFetcher
+  );
+
+  let result = "";
+  if (error2) {
+    result = ErrorMessage(error2);
+  } else if (shouldFetchAllUsers && !allUsers) {
+    result = (
+      <Dimmer active>
+        <Loader />
+      </Dimmer>
+    );
+  } else {
+    if (!!storedUser) {
+      result = <Message>Welcome {storedUser}!</Message>;
+    } else {
+      // Handle errors the same as empty storage item.
+      result = LoginScreen(allUsers);
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -64,23 +92,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container>
-        <Header textAlign="center">Welcome to SteegeList!</Header>
-
-        <Input name="username" placeholder="username"></Input>
-        <Button>Login-ish</Button>
-
-        <List bulleted>
-          <List.Item>Apples</List.Item>
-          <List.Item>Bananas</List.Item>
-          <List.Item>Cucumbers</List.Item>
-          <List.Item>Donuts</List.Item>
-          <List.Item>Eggs</List.Item>
-        </List>
-
-        <UserTest />
-        <ListAPITest />
-      </Container>
+      {result}
     </div>
   );
 }
