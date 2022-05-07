@@ -40,7 +40,12 @@ export default function UserSelect() {
           <Card.Header>{user.id}</Card.Header>
         </Card.Content>
         <Card.Content extra>
-          <div className="ui fluid button" onClick={() => ChooseUser(user.id)}>
+          <div
+            className="ui fluid button"
+            onClick={() => {
+              ChooseUser(user.id);
+            }}
+          >
             <Button basic color="green">
               Login
             </Button>
