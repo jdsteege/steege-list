@@ -29,7 +29,7 @@ export default NextAuth({
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
 
-        let user = undefined;
+        let user = null;
         try {
           for (const u of userDatabase) {
             if (

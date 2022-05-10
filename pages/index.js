@@ -1,45 +1,53 @@
 //
-import React from "react";
+import { useSession as useAuthSession, signIn } from "next-auth/react";
+import Link from "next/link";
 
+//
 import "semantic-ui-css/semantic.min.css";
-import Head from "next/head";
-import useSWR from "swr";
+import { Segment, Header, Button, Grid } from "semantic-ui-react";
 
 //
-import { Message } from "semantic-ui-react";
-
-//
-import UserSelect from "../components/UserSelect";
-import LoginButton from "../components/LoginButton";
-import { storageKeys } from "../global/constants";
-
-//
-export default function Home() {
-  const { data: storedUser, error: error1 } = useSWR(
-    storageKeys.userid,
-    (key) => {
-      const value = localStorage.getItem(key);
-      return value;
-    }
-  );
-
-  let result = "";
-  if (!!storedUser) {
-    result = <Message>Welcome {storedUser}!</Message>;
-  } else {
-    result = <UserSelect />;
-  }
+export default function Home(props) {
+  const { data: authSession } = useAuthSession();
 
   return (
-    <div>
-      <Head>
-        <title>Steege List</title>
-        <meta name="description" content="A list app" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <LoginButton></LoginButton>
-      {result}
-    </div>
+    <>
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Segment.Group>
+            <Segment color="teal">
+              <Header as="h1" color="teal">
+                SteegeList
+              </Header>
+              <Header.Subheader>
+                A list app.
+                <br />
+                Made by Steeges, for Steeges.
+              </Header.Subheader>
+            </Segment>
+            <Segment color="teal">
+              {authSession?.user ? (
+                <Link href="/dashboard" passHref>
+                  <Button color="teal">Dashboard</Button>
+                </Link>
+              ) : (
+                <Button
+                  color="teal"
+                  onClick={() =>
+                    signIn(undefined, { callbackUrl: "/dashboard" })
+                  }
+                >
+                  Sign In
+                </Button>
+              )}
+            </Segment>
+          </Segment.Group>
+        </Grid.Column>
+      </Grid>
+    </>
   );
 }
