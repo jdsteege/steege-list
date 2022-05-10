@@ -1,24 +1,22 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { getSession as getAuthSession } from "next-auth/react";
+import { getUserId, sendAuthError } from "./apiHelper";
 
-const handler = async (req, res) => {
-  const authSession = await getAuthSession({ req });
+export default async function handler(req, res) {
+  const userId = getUserId(req);
 
-  if (authSession) {
-    const result = {
-      lists: [
-        { listName: "Shopping" },
-        { listName: "Chores" },
-        { listName: "Birthday Party" },
-      ],
-    };
-    res.status(200).json(result);
-  } else {
-    res.status(401).send({
-      error: "You must be authenticated.",
-    });
+  if (!userId) {
+    sendAuthError(res);
+    return;
   }
-};
 
-export default handler;
+  const result = {
+    lists: [
+      { listName: "Shopping" },
+      { listName: "Chores" },
+      { listName: "Birthday Party" },
+    ],
+  };
+
+  res.status(200).json(result);
+}

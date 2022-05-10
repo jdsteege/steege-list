@@ -1,6 +1,7 @@
 //
 import React, { useEffect } from "react";
 import useSWR from "swr";
+import Link from "next/link";
 
 //
 const swrFetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -15,17 +16,16 @@ export default function ListCollection() {
     return <p>Wait...</p>;
   }
 
-  console.log(`allListData ` + JSON.stringify(allListData));
-  console.log(`allListError ` + JSON.stringify(allListError));
-
-  let result = ``;
   const listNames = allListData.lists.map((listInfo) => (
-    <li key={listInfo.listName}>{listInfo.listName}</li>
+    <li key={listInfo.listName}>
+      <Link href="/list-detail" passHref>
+        <a>{listInfo.listName}</a>
+      </Link>
+    </li>
   ));
 
   return (
     <>
-      <p>test</p>
       <ul>{listNames}</ul>
     </>
   );

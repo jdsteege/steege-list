@@ -1,22 +1,24 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { getSession as getAuthSession } from "next-auth/react";
+import { getUserId, sendAuthError } from "./apiHelper";
 
-const handler = async (req, res) => {
-  const authSession = await getAuthSession({ req });
+export default async function handler(req, res) {
+  const userId = getUserId(req);
 
-  if (authSession) {
-    const result = {
-      listName: "Shopping",
-      items: [{ label: "Apple" }, { label: "Banana" }, { label: "Carrot" }],
-    };
-    res.status(200).json(result);
-  } else {
-    res.send({
-      error:
-        "You must be authenticated to view the protected content on this page.",
-    });
+  if (!userId) {
+    sendAuthError(res);
+    return;
   }
-};
 
-export default handler;
+  const result = {
+    listName: "Shopping",
+    items: [
+      { label: "Apple" },
+      { label: "Banana" },
+      { label: "Carrot" },
+      { label: "Donut" },
+    ],
+  };
+
+  res.status(200).json(result);
+}
