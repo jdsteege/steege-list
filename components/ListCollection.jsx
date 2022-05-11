@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import useSWR from "swr";
 import Link from "next/link";
+import { Loader } from "semantic-ui-react";
 
 //
 const swrFetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -13,7 +14,7 @@ export default function ListCollection() {
   );
 
   if (!allListData) {
-    return <p>Wait...</p>;
+    return <Loader active />;
   }
 
   const listNames = allListData.lists.map((listInfo) => (

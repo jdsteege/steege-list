@@ -1,11 +1,11 @@
 //
 import "semantic-ui-css/semantic.min.css";
-import { Segment, Header, Button, Grid, List } from "semantic-ui-react";
+import { Segment } from "semantic-ui-react";
 import ListDisplay from "../components/ListDisplay";
 import SignOutButton from "../components/SignOutButton";
 
 //
-export default function Home(props) {
+export default function ListDetail(props) {
   return (
     <>
       <Segment>
@@ -18,3 +18,5 @@ export default function Home(props) {
     </>
   );
 }
+
+ListDetail.requiresAuthentication = true;

@@ -8,7 +8,7 @@ import { Segment, Header, Button, Grid } from "semantic-ui-react";
 
 //
 export default function Home(props) {
-  const { data: authSession } = useAuthSession();
+  const { data: authSession, status: authStatus } = useAuthSession();
 
   return (
     <>
@@ -51,3 +51,5 @@ export default function Home(props) {
     </>
   );
 }
+
+Home.requiresAuthentication = false;

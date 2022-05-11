@@ -5,7 +5,7 @@ import ListCollection from "../components/ListCollection";
 import SignOutButton from "../components/SignOutButton";
 
 //
-export default function Home(props) {
+export default function Dashboard(props) {
   return (
     <>
       <Segment>
@@ -18,3 +18,5 @@ export default function Home(props) {
     </>
   );
 }
+
+Dashboard.requiresAuthentication = true;

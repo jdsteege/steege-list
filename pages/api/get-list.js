@@ -3,7 +3,7 @@
 import { getUserId, sendAuthError } from "./apiHelper";
 
 export default async function handler(req, res) {
-  const userId = getUserId(req);
+  const userId = await getUserId(req);
 
   if (!userId) {
     sendAuthError(res);

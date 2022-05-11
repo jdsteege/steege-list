@@ -1,25 +1,27 @@
 //
-import { useSession as useAuthSession, signIn, signOut } from "next-auth/react";
-
-//
-import { Modal, Button } from "semantic-ui-react";
+import React, { useState } from "react";
+import { useSession as useAuthSession, signOut } from "next-auth/react";
+import { Button, Dimmer, Loader } from "semantic-ui-react";
 
 //
 export default function SignOutButton() {
   const { data: authSession } = useAuthSession();
+  const [dimmed, setDimmed] = useState(false);
 
-  if (authSession) {
-    return (
-      <>
-        Signed in as {authSession.user.firstname} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <p>Wait...</p>
-      </>
-    );
-  }
+  return (
+    <>
+      <Dimmer active={dimmed} page>
+        <Loader />
+      </Dimmer>
+      Signed in as {authSession?.user?.firstname} <br />
+      <Button
+        onClick={() => {
+          setDimmed(true);
+          signOut({ callbackUrl: "/" });
+        }}
+      >
+        Sign out
+      </Button>
+    </>
+  );
 }
