@@ -1,11 +1,17 @@
 //
+import { useRouter } from "next/router";
 import "semantic-ui-css/semantic.min.css";
 import { Segment } from "semantic-ui-react";
 import ListDisplay from "../components/ListDisplay";
 import SignOutButton from "../components/SignOutButton";
+import { logThing } from "../util";
 
 //
-export default function ListDetail(props) {
+export default function ListDetail() {
+  const { query } = useRouter();
+
+  const listId = query.listId;
+
   return (
     <>
       <Segment>
@@ -13,7 +19,7 @@ export default function ListDetail(props) {
         <SignOutButton></SignOutButton>
       </Segment>
       <Segment>
-        <ListDisplay />
+        <ListDisplay listId={listId} />
       </Segment>
     </>
   );

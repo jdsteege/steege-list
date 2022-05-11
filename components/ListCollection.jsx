@@ -7,9 +7,9 @@ import { Loader } from "semantic-ui-react";
 //
 const swrFetcher = (...args) => fetch(...args).then((res) => res.json());
 
-export default function ListCollection() {
+export default function ListCollection(props) {
   const { data: allListData, error: allListError } = useSWR(
-    "/api/get-all-lists",
+    `/api/get-user-lists`,
     swrFetcher
   );
 
@@ -17,9 +17,9 @@ export default function ListCollection() {
     return <Loader active />;
   }
 
-  const listNames = allListData.lists.map((listInfo) => (
+  const listNames = allListData.map((listInfo) => (
     <li key={listInfo.listName}>
-      <Link href="/list-detail" passHref>
+      <Link href={"/list-detail?listId=" + listInfo.listId} passHref>
         <a>{listInfo.listName}</a>
       </Link>
     </li>

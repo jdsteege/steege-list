@@ -6,14 +6,21 @@ import Link from "next/link";
 //
 const swrFetcher = (...args) => fetch(...args).then((res) => res.json());
 
-export default function ListCollection() {
+export default function ListDisplay(props) {
   const { data: listData, error: itemsError } = useSWR(
-    "/api/get-list",
+    `/api/get-list?listId=${props.listId}`,
     swrFetcher
   );
 
   if (!listData) {
-    return <p>Wait...</p>;
+    return (
+      <>
+        <Link href="/dashboard">
+          <a>&lt; Back</a>
+        </Link>
+        <p>Wait...</p>
+      </>
+    );
   }
 
   const itemNames = listData.items.map((itemInfo) => (
