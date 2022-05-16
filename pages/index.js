@@ -15,7 +15,7 @@ export default function Home(props) {
     actionButton = (
       <Button
         color="teal"
-        onClick={() => signIn(`credentials`, { callbackUrl: "/dashboard" })}
+        onClick={() => signIn(undefined, { callbackUrl: "/dashboard" })}
       >
         Sign In
       </Button>
