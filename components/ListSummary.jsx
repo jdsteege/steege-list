@@ -22,7 +22,7 @@ export default function ListSummary(props) {
   let items = useLiveQuery(() =>
     db.items.where("itemListId").equals(props.listInfo.listId).sortBy("sortPos")
   );
-  items = items?.slice(0, 3);
+  items = items?.slice(0, 10);
 
   const [confirmDeleteVisible, setConfirmDeleteVisible] = useState(false);
 
@@ -55,14 +55,16 @@ export default function ListSummary(props) {
   };
 
   return (
-    <Segment compact style={{ minWidth: 150, maxWidth: 250 }}>
+    <Segment compact style={{ minWidth: 150, maxWidth: 250, minHeight: 250 }}>
       <Link href={"/list-detail?listId=" + props.listInfo.listId} passHref>
         <a>
-          <Header as="h3">{props.listInfo.listName}</Header>
+          <Header as="h3">
+            <u>{props.listInfo.listName}</u>
+          </Header>
         </a>
       </Link>
       <List>{itemNames}</List>
-      <div style={{ minHeight: 30 }}>
+      <div style={{ minHeight: 20 }}>
         <Button
           compact
           size="mini"
