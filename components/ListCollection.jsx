@@ -6,14 +6,11 @@ import { Button, Input, Segment, Form } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
 //
 import { db } from "../js/dexie-db";
+import ListDisplay from "./ListDisplay";
+import ListSummary from "./ListSummary";
 
 //
 export default function ListCollection(props) {
-  // const { data: allListData, error: allListError } = useSWR(
-  //   `/api/get-user-lists`,
-  //   swrFetcher
-  // );
-
   const lists = useLiveQuery(() => db.lists.toCollection().sortBy("sortPos"));
   const [newListName, setNewListName] = useState("");
 
@@ -48,12 +45,16 @@ export default function ListCollection(props) {
   }
 
   //
-  const listNames = lists.map((listInfo) => (
-    <li key={listInfo.listId}>
-      <Link href={"/list-detail?listId=" + listInfo.listId} passHref>
-        <a>{listInfo.listName}</a>
-      </Link>
-    </li>
+  // const listNames = lists.map((listInfo) => (
+  //   <li key={listInfo.listId}>
+  //     <Link href={"/list-detail?listId=" + listInfo.listId} passHref>
+  //       <a>{listInfo.listName}</a>
+  //     </Link>
+  //   </li>
+  // ));
+
+  const summaries = lists.map((listInfo) => (
+    <ListSummary key={listInfo.listId} listInfo={listInfo} />
   ));
 
   return (
@@ -67,7 +68,8 @@ export default function ListCollection(props) {
           />
         </Form>
       </Segment>
-      <ul>{listNames}</ul>
+      {/* <ul>{listNames}</ul> */}
+      <div className="list-box">{summaries}</div>
     </>
   );
 }

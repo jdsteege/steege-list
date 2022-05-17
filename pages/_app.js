@@ -1,41 +1,12 @@
 //
-import { useEffect } from "react";
-import "../styles/globals.css";
+import { SessionProvider, useSession as useAuthSession } from "next-auth/react";
 import Head from "next/head";
-import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useSession as useAuthSession } from "next-auth/react";
-import { Segment, Loader } from "semantic-ui-react";
-
-// Register service worker
-const registerServiceWorker = () => {
-  if ("serviceWorker" in navigator) {
-    // window.addEventListener("load", () => {
-    //   navigator.serviceWorker.register("/service-worker.js").then((reg) => {
-    //     console.log("Service worker registered.", reg);
-    //   });
-    // });
-    navigator.serviceWorker
-      .register("/service-worker.js")
-      .then(function (registration) {
-        console.log(
-          new Date().getTime(),
-          " Registration successful, scope is:",
-          registration.scope
-        );
-      })
-      .catch(function (error) {
-        console.log("Service worker registration failed, error:", error);
-      });
-  }
-};
+import { Loader } from "semantic-ui-react";
+import "../styles/globals.css";
 
 //
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  useEffect(() => {
-    // registerServiceWorker();
-  });
-
   return (
     <>
       <Head>

@@ -62,20 +62,6 @@ export default function ListDisplay(props) {
     );
   }
 
-  // const currentList = allListData.find((l) => l.listId == props.listId);
-
-  // if (!props.listId) {
-  //   return (
-  //     <>
-  //       <p>Invalid list id: {props.listId}</p>
-  //     </>
-  //   );
-  // }
-
-  // const labelChanged = (id, label) => {
-  //   console.log("changed ", id, " to ", label);
-  // };
-
   const completed = (id, isComplete) => {
     console.log("completed ", id, " to ", isComplete);
   };

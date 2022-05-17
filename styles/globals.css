@@ -18,3 +18,15 @@ a {
 input.list-item {
   border: 0px solid;
 }
+
+div.list-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.delete-button {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+}

@@ -10,5 +10,6 @@ const withPWA = require("next-pwa");
 module.exports = withPWA({
   pwa: {
     dest: "public",
+    mode: "production", // Remove this or change to 'development' to enable workbox logging.
   },
 });
