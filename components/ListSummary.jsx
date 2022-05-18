@@ -39,28 +39,30 @@ export default function ListSummary(props) {
   }
   const itemNames = items.map((itemInfo) => (
     <List.Item key={itemInfo.itemId}>
-      {itemInfo.isComplete ? (
-        <strike style={{ color: "#aaa" }}>{itemInfo.label}</strike>
-      ) : (
-        itemInfo.label
-      )}
+      <itemlabel
+        style={
+          itemInfo.isComplete
+            ? { color: "#aaa", textDecoration: "line-through" }
+            : { color: "#000" }
+        }
+      >
+        {itemInfo.label}
+      </itemlabel>
       <Divider fitted />
     </List.Item>
   ));
 
   return (
-    <Segment
-      compact
-      style={{ minWidth: "150px", maxWidth: "360px", minHeight: "150" }}
-    >
-      <Link href={"/list-detail?listId=" + props.listInfo.listId} passHref>
-        <a>
-          <Header as="h3">
-            <u>{props.listInfo.listName}</u>
-          </Header>
-        </a>
-      </Link>
-      <List>{itemNames}</List>
-    </Segment>
+    <Link href={"/list-detail?listId=" + props.listInfo.listId} passHref>
+      <Segment
+        compact
+        style={{ minWidth: "150px", maxWidth: "360px", minHeight: "150" }}
+      >
+        <Header as="h3">
+          <u>{props.listInfo.listName}</u>
+        </Header>
+        <List>{itemNames}</List>
+      </Segment>
+    </Link>
   );
 }

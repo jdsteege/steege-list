@@ -73,28 +73,22 @@ export default function ListDisplay(props) {
     db.items.update(id, { isComplete: isChecked });
   };
 
-  // TODO: change from table on every row, to one table for entire list
   const itemNames = items.map((itemInfo) => (
-    <List.Item key={itemInfo.itemId}>
-      <table>
-        <tbody>
-          <tr style={{ verticalAlign: "middle" }}>
-            <td
-              onClick={() => completed(itemInfo.itemId, !itemInfo.isComplete)}
-              style={{ padding: "5px" }}
-            >
-              <Checkbox checked={itemInfo.isComplete} />
-            </td>
-            {itemInfo.isComplete ? (
-              <td style={{ color: "#aaa" }}>{itemInfo.label}</td>
-            ) : (
-              <td>{itemInfo.label}</td>
-            )}
-          </tr>
-        </tbody>
-      </table>
-      <Divider fitted />
-    </List.Item>
+    <>
+      <tr key={itemInfo.itemId} style={{ verticalAlign: "middle" }}>
+        <td
+          onClick={() => completed(itemInfo.itemId, !itemInfo.isComplete)}
+          style={{ padding: "5px" }}
+        >
+          <Checkbox checked={itemInfo.isComplete} />
+        </td>
+
+        <td style={{ color: itemInfo.isComplete ? "#aaa" : "#000" }}>
+          {itemInfo.label}
+          <Divider fitted />
+        </td>
+      </tr>
+    </>
   ));
 
   return (
@@ -108,14 +102,19 @@ export default function ListDisplay(props) {
         </Grid.Column>
       </Grid>
 
-      <Form onSubmit={() => addItem()} style={{ margin: "20px" }}>
+      <Form
+        onSubmit={() => addItem()}
+        style={{ margin: "20px", maxWidth: "500px" }}
+      >
         <Form.Input
           value={newItemName}
           onChange={(ev) => setNewItemName(ev.target.value)}
           action={<Button color="teal">Add Item</Button>}
         />
       </Form>
-      <List>{itemNames}</List>
+      <table>
+        <tbody>{itemNames}</tbody>
+      </table>
     </>
   );
 }

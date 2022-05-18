@@ -9,16 +9,15 @@ import { logThing } from "../js/util";
 
 //
 export default function ListDetail() {
-  const { query } = useRouter();
+  const router = useRouter();
 
-  const listId = query.listId;
+  const listId = router.query.listId;
 
   return (
     <div style={{ margin: "1%" }}>
       <Menu>
-        <Link href="/dashboard" passHref>
-          <Menu.Item name="Back" />
-        </Link>
+        <Menu.Item name="Back" onClick={() => router.back()} />
+
         <Menu.Menu position="right">
           <Menu.Item>
             <SignOutButton />
