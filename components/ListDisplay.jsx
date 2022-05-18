@@ -73,6 +73,7 @@ export default function ListDisplay(props) {
     db.items.update(id, { isComplete: isChecked });
   };
 
+  // TODO: change from table on every row, to one table for entire list
   const itemNames = items.map((itemInfo) => (
     <List.Item key={itemInfo.itemId}>
       <table>
@@ -82,12 +83,7 @@ export default function ListDisplay(props) {
               onClick={() => completed(itemInfo.itemId, !itemInfo.isComplete)}
               style={{ padding: "5px" }}
             >
-              <Checkbox
-                checked={itemInfo.isComplete}
-                // onChange={(event, data) =>
-                //   completed(itemInfo.itemId, data.checked)
-                // }
-              />
+              <Checkbox checked={itemInfo.isComplete} />
             </td>
             {itemInfo.isComplete ? (
               <td style={{ color: "#aaa" }}>{itemInfo.label}</td>
@@ -100,20 +96,6 @@ export default function ListDisplay(props) {
       <Divider fitted />
     </List.Item>
   ));
-
-  // const itemNames = items.map((itemInfo) => (
-  //   <List.Item key={itemInfo.itemId}>
-  //     <div style={{ display: "flex" }}>
-  //       <Checkbox
-  //         checked={itemInfo.isComplete}
-  //         onChange={(event, data) => completed(itemInfo.itemId, data.checked)}
-  //         style={{ paddingBottom: "6px", margin: "6px" }}
-  //       />
-  //       <div>{itemInfo.label}</div>
-  //     </div>
-  //     <Divider fitted />
-  //   </List.Item>
-  // ));
 
   return (
     <>
