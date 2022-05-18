@@ -12,6 +12,7 @@ import {
   Header,
   Modal,
   Confirm,
+  Divider,
 } from "semantic-ui-react";
 
 //
@@ -47,6 +48,7 @@ export default function ListSummary(props) {
         label={itemInfo.label}
       /> */}
       {itemInfo.isComplete ? <strike>itemInfo.label</strike> : itemInfo.label}
+      <Divider fitted />
     </List.Item>
   ));
 
@@ -58,7 +60,7 @@ export default function ListSummary(props) {
   return (
     <Segment
       compact
-      style={{ minWidth: "150px", maxWidth: "50%", minHeight: "150" }}
+      style={{ minWidth: "150px", maxWidth: "360px", minHeight: "150" }}
     >
       <Link href={"/list-detail?listId=" + props.listInfo.listId} passHref>
         <a>

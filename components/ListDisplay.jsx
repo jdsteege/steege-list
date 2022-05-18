@@ -8,6 +8,7 @@ import {
   List,
   Segment,
   Form,
+  Divider,
 } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
 //
@@ -71,12 +72,14 @@ export default function ListDisplay(props) {
       <Checkbox
         onChange={(event, data) => completed(itemInfo.itemId, data.checked)}
         label={itemInfo.label}
+        style={{ paddingBottom: "6px" }}
       />
       {/* <input
         defaultValue={itemInfo.label}
         className="list-item"
         onChange={(event) => labelChanged(itemInfo.itemId, event.target.value)}
       /> */}
+      <Divider fitted />
     </List.Item>
   ));
 
@@ -86,7 +89,7 @@ export default function ListDisplay(props) {
 
       <Segment>
         <Form onSubmit={() => addItem()}>
-          <Input
+          <Form.Input
             value={newItemName}
             onChange={(ev) => setNewItemName(ev.target.value)}
             action={<Button>Add Item</Button>}

@@ -60,8 +60,8 @@ export default function ListCollection(props) {
   return (
     <>
       <Segment>
-        <Form onSubmit={() => addList()} style={{ maxWidth: "50%" }}>
-          <Input
+        <Form onSubmit={() => addList()} style={{}}>
+          <Form.Input
             value={newListName}
             onChange={(ev) => setNewListName(ev.target.value)}
             action={<Button>Add List</Button>}
