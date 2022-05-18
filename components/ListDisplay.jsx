@@ -9,10 +9,15 @@ import {
   Segment,
   Form,
   Divider,
+  Header,
+  Grid,
+  Container,
+  Label,
 } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
 //
 import { db } from "../js/dexie-db";
+import ListActions from "./ListActions";
 
 //
 export default function ListDisplay(props) {
@@ -63,39 +68,71 @@ export default function ListDisplay(props) {
     );
   }
 
-  const completed = (id, isComplete) => {
-    console.log("completed ", id, " to ", isComplete);
+  const completed = (id, isChecked) => {
+    console.log("completed ", id, " to ", isChecked);
+    db.items.update(id, { isComplete: isChecked });
   };
 
   const itemNames = items.map((itemInfo) => (
     <List.Item key={itemInfo.itemId}>
-      <Checkbox
-        onChange={(event, data) => completed(itemInfo.itemId, data.checked)}
-        label={itemInfo.label}
-        style={{ paddingBottom: "6px" }}
-      />
-      {/* <input
-        defaultValue={itemInfo.label}
-        className="list-item"
-        onChange={(event) => labelChanged(itemInfo.itemId, event.target.value)}
-      /> */}
+      <table>
+        <tbody>
+          <tr style={{ verticalAlign: "middle" }}>
+            <td
+              onClick={() => completed(itemInfo.itemId, !itemInfo.isComplete)}
+              style={{ padding: "5px" }}
+            >
+              <Checkbox
+                checked={itemInfo.isComplete}
+                // onChange={(event, data) =>
+                //   completed(itemInfo.itemId, data.checked)
+                // }
+              />
+            </td>
+            {itemInfo.isComplete ? (
+              <td style={{ color: "#aaa" }}>{itemInfo.label}</td>
+            ) : (
+              <td>{itemInfo.label}</td>
+            )}
+          </tr>
+        </tbody>
+      </table>
       <Divider fitted />
     </List.Item>
   ));
 
+  // const itemNames = items.map((itemInfo) => (
+  //   <List.Item key={itemInfo.itemId}>
+  //     <div style={{ display: "flex" }}>
+  //       <Checkbox
+  //         checked={itemInfo.isComplete}
+  //         onChange={(event, data) => completed(itemInfo.itemId, data.checked)}
+  //         style={{ paddingBottom: "6px", margin: "6px" }}
+  //       />
+  //       <div>{itemInfo.label}</div>
+  //     </div>
+  //     <Divider fitted />
+  //   </List.Item>
+  // ));
+
   return (
     <>
-      <p>{list?.listName}</p>
+      <Grid stackable columns={2} verticalAlign="middle">
+        <Grid.Column>
+          <Header as="h1">{list?.listName}</Header>
+        </Grid.Column>
+        <Grid.Column>
+          <ListActions list={list} />
+        </Grid.Column>
+      </Grid>
 
-      <Segment>
-        <Form onSubmit={() => addItem()}>
-          <Form.Input
-            value={newItemName}
-            onChange={(ev) => setNewItemName(ev.target.value)}
-            action={<Button>Add Item</Button>}
-          />
-        </Form>
-      </Segment>
+      <Form onSubmit={() => addItem()} style={{ margin: "20px" }}>
+        <Form.Input
+          value={newItemName}
+          onChange={(ev) => setNewItemName(ev.target.value)}
+          action={<Button color="teal">Add Item</Button>}
+        />
+      </Form>
       <List>{itemNames}</List>
     </>
   );

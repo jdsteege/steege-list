@@ -1,6 +1,7 @@
 //
 import { useLiveQuery } from "dexie-react-hooks";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Input, Segment, Form } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
@@ -13,26 +14,26 @@ import ListSummary from "./ListSummary";
 export default function ListCollection(props) {
   const lists = useLiveQuery(() => db.lists.toCollection().sortBy("sortPos"));
   const [newListName, setNewListName] = useState("");
+  const router = useRouter();
 
   function nextSortPos() {
     if (!lists || lists.length <= 0) {
       return 0;
     }
 
-    console.log(lists);
-
     return lists[lists.length - 1].sortPos + 1;
   }
 
   async function addList() {
     if (!newListName) return;
-    const id = await db.lists.add({
+    const newListId = await db.lists.add({
       listId: uuidv4(),
       listName: newListName,
       sortPos: nextSortPos(),
     });
 
     setNewListName("");
+    router.push("/list-detail?listId=" + newListId);
   }
 
   if (!lists) {
@@ -59,17 +60,15 @@ export default function ListCollection(props) {
 
   return (
     <>
-      <Segment>
-        <Form onSubmit={() => addList()} style={{}}>
-          <Form.Input
-            value={newListName}
-            onChange={(ev) => setNewListName(ev.target.value)}
-            action={<Button>Add List</Button>}
-          />
-        </Form>
-      </Segment>
+      <Form onSubmit={() => addList()} style={{ margin: "20px" }}>
+        <Form.Input
+          value={newListName}
+          onChange={(ev) => setNewListName(ev.target.value)}
+          action={<Button color="teal">Add List</Button>}
+        />
+      </Form>
       {/* <ul>{listNames}</ul> */}
-      <div className="list-box">{summaries}</div>
+      <div className="flex-box">{summaries}</div>
     </>
   );
 }

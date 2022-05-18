@@ -2,7 +2,7 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import "semantic-ui-css/semantic.min.css";
-import { Segment, Input } from "semantic-ui-react";
+import { Segment, Input, Menu } from "semantic-ui-react";
 import ListDisplay from "../components/ListDisplay";
 import SignOutButton from "../components/SignOutButton";
 import { logThing } from "../js/util";
@@ -15,14 +15,18 @@ export default function ListDetail() {
 
   return (
     <div style={{ margin: "1%" }}>
-      <Segment>
-        <p>list-detail.js</p>
-        <SignOutButton></SignOutButton>
-      </Segment>
-      <Segment>
-        <Link href="/dashboard">
-          <a>&lt; Back</a>
+      <Menu>
+        <Link href="/dashboard" passHref>
+          <Menu.Item name="Back" />
         </Link>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <SignOutButton />
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+
+      <Segment>
         <ListDisplay listId={listId} />
       </Segment>
     </div>

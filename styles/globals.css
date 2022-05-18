@@ -15,14 +15,8 @@ a {
   box-sizing: border-box;
 }
 
-div.list-box {
+div.flex-box {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-}
-
-.delete-button {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
+  gap: 8px;
 }

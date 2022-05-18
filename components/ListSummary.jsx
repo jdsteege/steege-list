@@ -25,8 +25,6 @@ export default function ListSummary(props) {
   );
   items = items?.slice(0, 6);
 
-  // const [confirmDeleteVisible, setConfirmDeleteVisible] = useState(false);
-
   //
   if (!props.listInfo.listId) {
     return (
@@ -41,21 +39,14 @@ export default function ListSummary(props) {
   }
   const itemNames = items.map((itemInfo) => (
     <List.Item key={itemInfo.itemId}>
-      {/* <Checkbox
-        readOnly
-        checked={itemInfo.isComplete}
-        onChange={(event, data) => completed(itemInfo.itemId, data.checked)}
-        label={itemInfo.label}
-      /> */}
-      {itemInfo.isComplete ? <strike>itemInfo.label</strike> : itemInfo.label}
+      {itemInfo.isComplete ? (
+        <strike style={{ color: "#aaa" }}>{itemInfo.label}</strike>
+      ) : (
+        itemInfo.label
+      )}
       <Divider fitted />
     </List.Item>
   ));
-
-  // const handleDeleteList = () => {
-  //   db.lists.delete(props.listInfo.listId);
-  //   setConfirmDeleteVisible(false);
-  // };
 
   return (
     <Segment
@@ -70,30 +61,6 @@ export default function ListSummary(props) {
         </a>
       </Link>
       <List>{itemNames}</List>
-      {/* <div style={{ minHeight: 20 }}>
-        <Button
-          compact
-          size="mini"
-          color="orange"
-          className="delete-button"
-          onClick={() => setConfirmDeleteVisible(true)}
-        >
-          Delete
-        </Button>
-      </div>
-      <Confirm
-        open={confirmDeleteVisible}
-        header="Confirm list delete"
-        content={
-          'This will delete "' +
-          props.listInfo.listName +
-          '" and all its items.'
-        }
-        cancelButton="Cancel"
-        confirmButton="Delete"
-        onCancel={() => setConfirmDeleteVisible(false)}
-        onConfirm={handleDeleteList}
-      /> */}
     </Segment>
   );
 }

@@ -1,7 +1,8 @@
 //
 
+import Link from "next/link";
 import "semantic-ui-css/semantic.min.css";
-import { Segment } from "semantic-ui-react";
+import { Menu, Segment } from "semantic-ui-react";
 import ListCollection from "../components/ListCollection";
 import SignOutButton from "../components/SignOutButton";
 
@@ -9,10 +10,14 @@ import SignOutButton from "../components/SignOutButton";
 export default function Dashboard(props) {
   return (
     <div style={{ margin: "1%" }}>
-      <Segment>
-        <p>dashboard.js</p>
-        <SignOutButton></SignOutButton>
-      </Segment>
+      <Menu>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <SignOutButton />
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+
       <Segment>
         <ListCollection />
       </Segment>
