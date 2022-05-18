@@ -15,10 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-input.list-item {
-  border: 0px solid;
-}
-
 div.list-box {
   display: flex;
   flex-wrap: wrap;

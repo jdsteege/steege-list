@@ -8,7 +8,7 @@ import SignOutButton from "../components/SignOutButton";
 //
 export default function Dashboard(props) {
   return (
-    <>
+    <div style={{ margin: "1%" }}>
       <Segment>
         <p>dashboard.js</p>
         <SignOutButton></SignOutButton>
@@ -16,7 +16,7 @@ export default function Dashboard(props) {
       <Segment>
         <ListCollection />
       </Segment>
-    </>
+    </div>
   );
 }
 

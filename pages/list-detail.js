@@ -14,7 +14,7 @@ export default function ListDetail() {
   const listId = query.listId;
 
   return (
-    <>
+    <div style={{ margin: "1%" }}>
       <Segment>
         <p>list-detail.js</p>
         <SignOutButton></SignOutButton>
@@ -25,7 +25,7 @@ export default function ListDetail() {
         </Link>
         <ListDisplay listId={listId} />
       </Segment>
-    </>
+    </div>
   );
 }
 

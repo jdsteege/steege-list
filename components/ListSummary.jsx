@@ -22,9 +22,9 @@ export default function ListSummary(props) {
   let items = useLiveQuery(() =>
     db.items.where("itemListId").equals(props.listInfo.listId).sortBy("sortPos")
   );
-  items = items?.slice(0, 10);
+  items = items?.slice(0, 6);
 
-  const [confirmDeleteVisible, setConfirmDeleteVisible] = useState(false);
+  // const [confirmDeleteVisible, setConfirmDeleteVisible] = useState(false);
 
   //
   if (!props.listInfo.listId) {
@@ -40,22 +40,26 @@ export default function ListSummary(props) {
   }
   const itemNames = items.map((itemInfo) => (
     <List.Item key={itemInfo.itemId}>
-      <Checkbox
+      {/* <Checkbox
         readOnly
         checked={itemInfo.isComplete}
         onChange={(event, data) => completed(itemInfo.itemId, data.checked)}
         label={itemInfo.label}
-      />
+      /> */}
+      {itemInfo.isComplete ? <strike>itemInfo.label</strike> : itemInfo.label}
     </List.Item>
   ));
 
-  const handleDeleteList = () => {
-    db.lists.delete(props.listInfo.listId);
-    setConfirmDeleteVisible(false);
-  };
+  // const handleDeleteList = () => {
+  //   db.lists.delete(props.listInfo.listId);
+  //   setConfirmDeleteVisible(false);
+  // };
 
   return (
-    <Segment compact style={{ minWidth: 150, maxWidth: 250, minHeight: 250 }}>
+    <Segment
+      compact
+      style={{ minWidth: "150px", maxWidth: "50%", minHeight: "150" }}
+    >
       <Link href={"/list-detail?listId=" + props.listInfo.listId} passHref>
         <a>
           <Header as="h3">
@@ -64,7 +68,7 @@ export default function ListSummary(props) {
         </a>
       </Link>
       <List>{itemNames}</List>
-      <div style={{ minHeight: 20 }}>
+      {/* <div style={{ minHeight: 20 }}>
         <Button
           compact
           size="mini"
@@ -87,7 +91,7 @@ export default function ListSummary(props) {
         confirmButton="Delete"
         onCancel={() => setConfirmDeleteVisible(false)}
         onConfirm={handleDeleteList}
-      />
+      /> */}
     </Segment>
   );
 }
