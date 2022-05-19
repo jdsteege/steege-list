@@ -8,22 +8,13 @@ import TextAreaAutosize from "./TextAreaAutosize";
 export default function ItemDetails(props) {
   const [label, setLabel] = useState(props.itemInfo.label);
 
-  //
-  const itemLabelChanged = (id, newLabel) => {
-    setLabel(newLabel);
-    // TODO: debounce or check focus so the database is not updated on every keypress.
-    db.items.update(id, { label: newLabel });
-  };
-
-  const completed = (id, isChecked) => {
-    db.items.update(id, { isComplete: isChecked });
-  };
-
   return (
     <tr style={{ verticalAlign: "middle" }}>
       <td
         onClick={() =>
-          completed(props.itemInfo.itemId, !props.itemInfo.isComplete)
+          db.items.update(props.itemInfo.itemId, {
+            isComplete: !props.itemInfo.isComplete,
+          })
         }
         style={{ padding: "5px" }}
       >
@@ -31,27 +22,13 @@ export default function ItemDetails(props) {
       </td>
 
       <td style={{ width: "100%" }}>
-        {/* <textarea
-          value={label}
-          className="item-details"
-          rows={1}
-          onChange={(event) =>
-            itemLabelChanged(props.itemInfo.itemId, event.target)
-          }
-          style={{
-            color: props.itemInfo.isComplete ? "#aaa" : "#000",
-          }}
-          ref={taRef}
-        /> */}
         <TextAreaAutosize
           value={label}
-          onValueChange={(newValue) =>
-            itemLabelChanged(props.itemInfo.itemId, newValue)
+          textColor={props.itemInfo.isComplete ? "#aaa" : "#000"}
+          onValueChange={(newValue) => setLabel(newValue)}
+          onBlur={() =>
+            db.items.update(props.itemInfo.itemId, { label: label })
           }
-          style={{
-            color: props.itemInfo.isComplete ? "#aaa" : "#000",
-            width: "100%",
-          }}
         />
 
         <Divider fitted />

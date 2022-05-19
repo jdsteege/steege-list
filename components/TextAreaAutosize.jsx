@@ -14,22 +14,22 @@ export default function TextAreaAutosize(props) {
     element.style.height = Number(element.scrollHeight) + 1 + "px";
   };
 
-  const onElementChange = (event) => {
-    props.onValueChange(event.target.value);
-  };
-
+  //
   return (
     <textarea
       value={props.value}
       rows={1}
-      onChange={(event) => onElementChange(event)}
       ref={taRef}
+      onChange={(event) => props.onValueChange(event.target.value)}
+      //   onFocus={(event) => props.onFocus(event)}
+      onBlur={(event) => props.onBlur(event)}
       style={{
         outline: "0px solid transparent",
         borderStyle: "hidden",
         resize: "none",
         overflow: "hidden",
         width: "100%",
+        color: props.textColor,
       }}
     />
   );
