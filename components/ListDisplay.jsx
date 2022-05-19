@@ -17,6 +17,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 //
 import { db } from "../js/dexie-db";
+import ItemDetails from "./ItemDetails";
 import ListActions from "./ListActions";
 
 //
@@ -68,27 +69,8 @@ export default function ListDisplay(props) {
     );
   }
 
-  const completed = (id, isChecked) => {
-    console.log("completed ", id, " to ", isChecked);
-    db.items.update(id, { isComplete: isChecked });
-  };
-
-  const itemNames = items.map((itemInfo) => (
-    <>
-      <tr key={itemInfo.itemId} style={{ verticalAlign: "middle" }}>
-        <td
-          onClick={() => completed(itemInfo.itemId, !itemInfo.isComplete)}
-          style={{ padding: "5px" }}
-        >
-          <Checkbox checked={itemInfo.isComplete} />
-        </td>
-
-        <td style={{ color: itemInfo.isComplete ? "#aaa" : "#000" }}>
-          {itemInfo.label}
-          <Divider fitted />
-        </td>
-      </tr>
-    </>
+  const itemDisplays = items.map((i) => (
+    <ItemDetails key={i.itemId} itemInfo={i} />
   ));
 
   return (
@@ -112,8 +94,8 @@ export default function ListDisplay(props) {
           action={<Button color="teal">Add Item</Button>}
         />
       </Form>
-      <table>
-        <tbody>{itemNames}</tbody>
+      <table style={{ width: "100%" }}>
+        <tbody style={{ width: "100%" }}>{itemDisplays}</tbody>
       </table>
     </>
   );

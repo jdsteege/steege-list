@@ -53,35 +53,12 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   console.log("signIn callback");
-    //   console.log("user: " + JSON.stringify(user));
-    //   console.log("account: " + JSON.stringify(account));
-    //   console.log("profile: " + JSON.stringify(profile));
-    //   console.log("email: " + JSON.stringify(email));
-    //   return true;
-    // },
-    // async redirect({ url, baseUrl }) {
-    //   return baseUrl;
-    // },
     async session({ session, user, token }) {
-      //   console.log("session callback");
-      //   console.log("session: " + JSON.stringify(session));
-      //   console.log("user: " + JSON.stringify(user));
-      //   console.log("token: " + JSON.stringify(token));
-
       session.user = token?.userCustom;
 
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
-      //   console.log("jwt callback");
-      //   console.log("token: " + JSON.stringify(token));
-      //   console.log("user: " + JSON.stringify(user));
-      //   console.log("account: " + JSON.stringify(account));
-      //   console.log("profile: " + JSON.stringify(profile));
-      //   console.log("isNewUser: " + JSON.stringify(isNewUser));
-
       if (user) {
         token.userCustom = user;
       }

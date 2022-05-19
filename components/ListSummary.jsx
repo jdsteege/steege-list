@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/link-passhref */
 //
 import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -23,6 +24,8 @@ export default function ListSummary(props) {
   let items = useLiveQuery(() =>
     db.items.where("itemListId").equals(props.listInfo.listId).sortBy("sortPos")
   );
+  const limit = 6;
+  const moreThanLimit = items?.length > limit;
   items = items?.slice(0, 6);
 
   //
@@ -39,7 +42,7 @@ export default function ListSummary(props) {
   }
   const itemNames = items.map((itemInfo) => (
     <List.Item key={itemInfo.itemId}>
-      <itemlabel
+      <div
         style={
           itemInfo.isComplete
             ? { color: "#aaa", textDecoration: "line-through" }
@@ -47,22 +50,27 @@ export default function ListSummary(props) {
         }
       >
         {itemInfo.label}
-      </itemlabel>
+      </div>
       <Divider fitted />
     </List.Item>
   ));
 
   return (
-    <Link href={"/list-detail?listId=" + props.listInfo.listId} passHref>
-      <Segment
-        compact
-        style={{ minWidth: "150px", maxWidth: "360px", minHeight: "150" }}
-      >
-        <Header as="h3">
-          <u>{props.listInfo.listName}</u>
-        </Header>
-        <List>{itemNames}</List>
-      </Segment>
+    <Link href={"/list-detail?listId=" + props.listInfo.listId}>
+      <div>
+        <Segment
+          compact
+          style={{ minWidth: "150px", maxWidth: "360px", minHeight: "180px" }}
+        >
+          <Header as="h3">
+            <u>{props.listInfo.listName}</u>
+          </Header>
+          <List>
+            {itemNames}
+            {moreThanLimit ? <List.Item>. . .</List.Item> : <></>}
+          </List>
+        </Segment>
+      </div>
     </Link>
   );
 }

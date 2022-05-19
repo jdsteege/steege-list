@@ -22,7 +22,7 @@ export default function Home(props) {
     );
   } else if (authStatus === `authenticated`) {
     actionButton = (
-      <Link href="/dashboard" passHref>
+      <Link href="/dashboard" passHref replace>
         <Button color="teal">Dashboard</Button>
       </Link>
     );
