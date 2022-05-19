@@ -8,23 +8,24 @@ export default function ItemDetails(props) {
   const [label, setLabel] = useState(props.itemInfo.label);
 
   // The following is needed to resize the textarea to match its content.
-  const taRef = useRef();
+  //   const taRef = useRef();
 
-  useLayoutEffect(() => {
-    autosizeTextarea(taRef.current);
-  }, [label]);
+  //   useLayoutEffect(() => {
+  //     autosizeTextarea(taRef.current);
+  //   }, [label]);
 
-  const autosizeTextarea = (element) => {
-    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement#autogrowing_textarea_example
-    element.style.height = "1px";
-    element.style.height = element.scrollHeight + "px";
-  };
+  //   const autosizeTextarea = (element) => {
+  //     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement#autogrowing_textarea_example
+  //     element.style.height = "1px";
+  //     element.style.height = element.scrollHeight + "px";
+  //   };
 
   //
   const itemLabelChanged = (id, element) => {
-    setLabel(element.value);
-    // TODO: debounce or check focus so the database is not updated on every keypress.
-    db.items.update(id, { label: element.value });
+    console.log(element.innerHTML);
+    setLabel(element.innerHTML);
+    // TODO: debounce or check focus/blur so the database is not updated on every keypress.
+    db.items.update(id, { label: element.innerHTML });
   };
 
   const completed = (id, isChecked) => {
@@ -43,7 +44,7 @@ export default function ItemDetails(props) {
       </td>
 
       <td style={{ width: "100%" }}>
-        <textarea
+        {/* <textarea
           value={label}
           className="item-details"
           rows={1}
@@ -54,7 +55,20 @@ export default function ItemDetails(props) {
             color: props.itemInfo.isComplete ? "#aaa" : "#000",
           }}
           ref={taRef}
-        />
+        /> */}
+        <div
+          contentEditable
+          className="item-details"
+          onBlur={(event) => {
+            console.log("here");
+            itemLabelChanged(props.itemInfo.itemId, event.target);
+          }}
+          style={{
+            color: props.itemInfo.isComplete ? "#aaa" : "#000",
+          }}
+        >
+          {label}
+        </div>
 
         <Divider fitted />
       </td>
