@@ -2,30 +2,17 @@
 import { useState, useLayoutEffect, useRef } from "react";
 import { Checkbox, Container, Divider } from "semantic-ui-react";
 import { db } from "../js/dexie-db";
+import TextAreaAutosize from "./TextAreaAutosize";
 
 //
 export default function ItemDetails(props) {
   const [label, setLabel] = useState(props.itemInfo.label);
 
-  // The following is needed to resize the textarea to match its content.
-  //   const taRef = useRef();
-
-  //   useLayoutEffect(() => {
-  //     autosizeTextarea(taRef.current);
-  //   }, [label]);
-
-  //   const autosizeTextarea = (element) => {
-  //     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement#autogrowing_textarea_example
-  //     element.style.height = "1px";
-  //     element.style.height = element.scrollHeight + "px";
-  //   };
-
   //
-  const itemLabelChanged = (id, element) => {
-    console.log(element.innerHTML);
-    setLabel(element.innerHTML);
-    // TODO: debounce or check focus/blur so the database is not updated on every keypress.
-    db.items.update(id, { label: element.innerHTML });
+  const itemLabelChanged = (id, newLabel) => {
+    setLabel(newLabel);
+    // TODO: debounce or check focus so the database is not updated on every keypress.
+    db.items.update(id, { label: newLabel });
   };
 
   const completed = (id, isChecked) => {
@@ -56,19 +43,16 @@ export default function ItemDetails(props) {
           }}
           ref={taRef}
         /> */}
-        <div
-          contentEditable
-          className="item-details"
-          onBlur={(event) => {
-            console.log("here");
-            itemLabelChanged(props.itemInfo.itemId, event.target);
-          }}
+        <TextAreaAutosize
+          value={label}
+          onValueChange={(newValue) =>
+            itemLabelChanged(props.itemInfo.itemId, newValue)
+          }
           style={{
             color: props.itemInfo.isComplete ? "#aaa" : "#000",
+            width: "100%",
           }}
-        >
-          {label}
-        </div>
+        />
 
         <Divider fitted />
       </td>

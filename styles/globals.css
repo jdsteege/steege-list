@@ -20,15 +20,3 @@ div.flex-box {
   flex-wrap: wrap;
   gap: 8px;
 }
-
-.item-details {
-  border-style: hidden;
-  outline-style: hidden;
-  width: 100%;
-  resize: none;
-  overflow: visible;
-}
-
-.item-details:focus {
-  outline: 0px solid transparent;
-}
