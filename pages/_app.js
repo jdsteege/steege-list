@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Loader } from "semantic-ui-react";
 import "../styles/globals.css";
+import "fomantic-ui-css/semantic.min.css";
 
 //
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
