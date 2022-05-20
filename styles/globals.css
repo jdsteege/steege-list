@@ -15,8 +15,14 @@ a {
   box-sizing: border-box;
 }
 
-div.flex-box {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+textarea.autosize {
+  outline: 0px solid transparent;
+  border-style: hidden;
+  resize: none;
+  overflow: hidden;
+  width: 100%;
+}
+
+textarea.autosize:focus {
+  background-color: #f4ffff;
 }

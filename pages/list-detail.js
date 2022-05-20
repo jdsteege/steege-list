@@ -1,7 +1,7 @@
 //
 import { useRouter } from "next/router";
 import Link from "next/link";
-import "semantic-ui-css/semantic.min.css";
+import "fomantic-ui-css/semantic.min.css";
 import { Segment, Input, Menu } from "semantic-ui-react";
 import ListDisplay from "../components/ListDisplay";
 import SignOutButton from "../components/SignOutButton";

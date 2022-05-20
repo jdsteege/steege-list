@@ -62,9 +62,7 @@ export default function ListSummary(props) {
           compact
           style={{ minWidth: "150px", maxWidth: "360px", minHeight: "180px" }}
         >
-          <Header as="h3">
-            <u>{props.listInfo.listName}</u>
-          </Header>
+          <Header as="h3">{props.listInfo.listName}</Header>
           <List>
             {itemNames}
             {moreThanLimit ? <List.Item>. . .</List.Item> : <></>}
