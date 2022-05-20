@@ -5,10 +5,10 @@ export default function TextAreaAutosize(props) {
   const taRef = useRef();
 
   useLayoutEffect(() => {
-    autosizeTextarea(taRef.current);
+    autosize(taRef.current);
   }, [props.value]);
 
-  const autosizeTextarea = (element) => {
+  const autosize = (element) => {
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement#autogrowing_textarea_example
     element.style.height = "1px";
     element.style.height = Number(element.scrollHeight) + 1 + "px";
@@ -19,6 +19,7 @@ export default function TextAreaAutosize(props) {
     <textarea
       value={props.value}
       rows={1}
+      spellCheck="false"
       ref={taRef}
       onChange={(event) => props.onValueChange(event.target.value)}
       //   onFocus={(event) => props.onFocus(event)}

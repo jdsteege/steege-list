@@ -16,7 +16,7 @@ export default function ItemDetails(props) {
             isComplete: !props.itemInfo.isComplete,
           })
         }
-        style={{ padding: "5px" }}
+        style={{ padding: "5px", transform: "scale(1.2)" }}
       >
         <Checkbox checked={props.itemInfo.isComplete} />
       </td>
@@ -33,6 +33,7 @@ export default function ItemDetails(props) {
 
         <Divider fitted />
       </td>
+      <td></td>
     </tr>
   );
 }
