@@ -9,7 +9,11 @@ export default function ItemDetails(props) {
   const [label, setLabel] = useState(props.itemInfo.label);
 
   return (
-    <tr style={{ verticalAlign: "middle" }}>
+    <tr
+      style={{
+        verticalAlign: "middle",
+      }}
+    >
       <td
         onClick={() =>
           db.items.update(props.itemInfo.itemId, {
@@ -25,10 +29,12 @@ export default function ItemDetails(props) {
         <TextAreaAutosize
           value={label}
           textColor={props.itemInfo.isComplete ? "#aaa" : "#000"}
-          onValueChange={(newValue) => setLabel(newValue)}
-          onBlur={() =>
-            db.items.update(props.itemInfo.itemId, { label: label })
-          }
+          onValueChange={(newValue) => {
+            setLabel(newValue);
+          }}
+          onBlur={() => {
+            db.items.update(props.itemInfo.itemId, { label: label });
+          }}
         />
 
         <Divider fitted />
