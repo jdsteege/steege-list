@@ -58,7 +58,9 @@ export default function ListCollection(props) {
           action={<Button color="teal">Add List</Button>}
         />
       </Form>
-      <div className="flex-box">{summaries}</div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+        {summaries}
+      </div>
     </>
   );
 }

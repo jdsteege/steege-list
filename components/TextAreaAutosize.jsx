@@ -22,15 +22,12 @@ export default function TextAreaAutosize(props) {
       spellCheck="false"
       ref={taRef}
       onChange={(event) => props.onValueChange(event.target.value)}
-      //   onFocus={(event) => props.onFocus(event)}
+      // onFocus={(event) => props.onFocus(event)}
       onBlur={(event) => props.onBlur(event)}
+      className="autosize"
       style={{
-        outline: "0px solid transparent",
-        borderStyle: "hidden",
-        resize: "none",
-        overflow: "hidden",
-        width: "100%",
-        color: props.textColor,
+        color: props.textColor ?? "#000",
+        fontSize: props.fontSize ?? "1rem",
       }}
     />
   );

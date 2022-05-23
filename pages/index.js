@@ -3,7 +3,7 @@ import { useSession as useAuthSession, signIn } from "next-auth/react";
 import Link from "next/link";
 
 //
-import "semantic-ui-css/semantic.min.css";
+// import "semantic-ui-css/semantic.min.css";
 import { Segment, Header, Button, Grid } from "semantic-ui-react";
 
 //

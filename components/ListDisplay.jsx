@@ -19,13 +19,20 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "../js/dexie-db";
 import ItemDetails from "./ItemDetails";
 import ListActions from "./ListActions";
+import TextAreaAutosize from "./TextAreaAutosize";
 
 //
 export default function ListDisplay(props) {
+  const [listName, setListName] = useState("");
   const [newItemName, setNewItemName] = useState("");
 
   const list = useLiveQuery(() =>
-    db.lists.where("listId").equals(props.listId).first()
+    db.lists
+      .where("listId")
+      .equals(props.listId)
+      .first((l) => {
+        setListName(l.listName);
+      })
   );
   const items = useLiveQuery(() =>
     db.items.where("itemListId").equals(props.listId).sortBy("sortPos")
@@ -59,14 +66,7 @@ export default function ListDisplay(props) {
   }
 
   if (!items) {
-    return (
-      // <>
-      //   <Dimmer active>
-      //     <Loader />
-      //   </Dimmer>
-      // </>
-      <p>Wait</p>
-    );
+    return <p>Wait</p>;
   }
 
   const itemDisplays = items.map((i) => (
@@ -77,7 +77,19 @@ export default function ListDisplay(props) {
     <>
       <Grid stackable columns={2} verticalAlign="middle">
         <Grid.Column>
-          <Header as="h1">{list?.listName}</Header>
+          {/* <Header as="h1">{list?.listName}</Header> */}
+          <TextAreaAutosize
+            value={listName}
+            onValueChange={(newValue) => {
+              setListName(newValue);
+            }}
+            onBlur={() => {
+              db.lists.update(props.listId, { listName: listName });
+              // setIsFocused(false);
+            }}
+            // textColor={props.itemInfo.isComplete ? "#aaa" : "#000"}
+            fontSize="2rem"
+          />
         </Grid.Column>
         <Grid.Column>
           <ListActions list={list} />

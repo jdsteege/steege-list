@@ -1,7 +1,7 @@
 //
 
 import Link from "next/link";
-import "semantic-ui-css/semantic.min.css";
+import "fomantic-ui-css/semantic.min.css";
 import { Menu, Segment } from "semantic-ui-react";
 import ListCollection from "../components/ListCollection";
 import SignOutButton from "../components/SignOutButton";
