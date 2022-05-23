@@ -35,5 +35,5 @@ yarn-error.log*
 .vercel
 
 workbox-*
-*.js.map
+*/*.js.map
 .gitignore
