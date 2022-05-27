@@ -22,7 +22,7 @@ export default function TextAreaAutosize(props) {
       spellCheck="false"
       ref={taRef}
       onChange={(event) => props.onValueChange(event.target.value)}
-      // onFocus={(event) => props.onFocus(event)}
+      onFocus={(event) => props.onFocus(event)}
       onBlur={(event) => props.onBlur(event)}
       className="autosize"
       style={{

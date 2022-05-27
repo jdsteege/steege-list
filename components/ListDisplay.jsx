@@ -77,17 +77,15 @@ export default function ListDisplay(props) {
     <>
       <Grid stackable columns={2} verticalAlign="middle">
         <Grid.Column>
-          {/* <Header as="h1">{list?.listName}</Header> */}
           <TextAreaAutosize
             value={listName}
             onValueChange={(newValue) => {
               setListName(newValue);
             }}
+            onFocus={() => {}}
             onBlur={() => {
               db.lists.update(props.listId, { listName: listName });
-              // setIsFocused(false);
             }}
-            // textColor={props.itemInfo.isComplete ? "#aaa" : "#000"}
             fontSize="2rem"
           />
         </Grid.Column>

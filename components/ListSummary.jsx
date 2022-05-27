@@ -61,7 +61,7 @@ export default function ListSummary(props) {
       <div>
         <Segment
           compact
-          style={{ minWidth: "200px", maxWidth: "350px", minHeight: "180px" }}
+          style={{ minWidth: "180px", maxWidth: "320px", minHeight: "180px" }}
         >
           <Header as="h3">{props.listInfo.listName}</Header>
           <List>
