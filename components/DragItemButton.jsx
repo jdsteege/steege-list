@@ -1,6 +1,7 @@
-import { IconButton } from "@chakra-ui/react";
-import { MdDragIndicator } from "react-icons/md";
-
 export default function DragItemButton(props) {
-  return <IconButton size="xs" icon={<MdDragIndicator />} />;
+  return (
+    <button className="ui icon button">
+      <i className="cloud icon"></i>
+    </button>
+  );
 }

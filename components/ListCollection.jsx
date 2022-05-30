@@ -1,13 +1,11 @@
 //
 import { useLiveQuery } from "dexie-react-hooks";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button, Input, Segment, Form, Grid } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
 //
 import { db } from "../js/dexie-db";
-import ListDisplay from "./ListDisplay";
 import ListSummary from "./ListSummary";
 
 //

@@ -1,6 +1,7 @@
-import { IconButton } from "@chakra-ui/react";
-import { MdMenu } from "react-icons/md";
-
 export default function EditItemButton(props) {
-  return <IconButton size="xs" icon={<MdMenu />} />;
+  return (
+    <button className="ui icon button">
+      <i className="cloud icon"></i>
+    </button>
+  );
 }

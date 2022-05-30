@@ -1,20 +1,7 @@
 //
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import {
-  Button,
-  Checkbox,
-  Input,
-  List,
-  Segment,
-  Form,
-  Divider,
-  Header,
-  Grid,
-  Container,
-  Confirm,
-} from "semantic-ui-react";
+import { Button, Confirm, Container } from "semantic-ui-react";
 //
 import { db } from "../js/dexie-db";
 

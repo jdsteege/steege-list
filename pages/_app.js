@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { Loader } from "semantic-ui-react";
 import "../styles/globals.css";
 import "fomantic-ui-css/semantic.min.css";
-import { ChakraProvider } from "@chakra-ui/react";
 
 //
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
@@ -20,21 +19,19 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <link rel="icon" href="/favicon.ico" />
         {HEAD_META}
       </Head>
-      <ChakraProvider>
-        <SessionProvider session={session}>
-          {Component.requiresAuthentication ? (
-            <>
-              <CheckAuthentication>
-                <Component {...pageProps} />
-              </CheckAuthentication>
-            </>
-          ) : (
-            <>
+      <SessionProvider session={session}>
+        {Component.requiresAuthentication ? (
+          <>
+            <CheckAuthentication>
               <Component {...pageProps} />
-            </>
-          )}
-        </SessionProvider>
-      </ChakraProvider>
+            </CheckAuthentication>
+          </>
+        ) : (
+          <>
+            <Component {...pageProps} />
+          </>
+        )}
+      </SessionProvider>
     </>
   );
 }
