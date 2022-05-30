@@ -4,13 +4,15 @@ import { Menu } from "semantic-ui-react";
 import SignOutButton from "./SignOutButton";
 
 //
-export default function Navbar({}) {
+export default function Navbar(props) {
   const router = useRouter();
 
   return (
     <>
       <Menu fixed="top">
-        <Menu.Item name="Back" onClick={() => router.back()} />
+        {props.backButton && (
+          <Menu.Item name="Back" onClick={() => router.back()} />
+        )}
 
         <Menu.Menu position="right">
           <Menu.Item>

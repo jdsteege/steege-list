@@ -11,7 +11,7 @@ export default function ListDetail() {
 
   return (
     <>
-      <Navbar />
+      <Navbar backButton />
 
       <ListDisplay listId={listId} />
     </>
