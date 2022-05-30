@@ -16,8 +16,6 @@ export default function ListActions(props) {
     router.push("/dashboard");
   };
 
-  console.log(props.list);
-
   return (
     <>
       <Container textAlign="right">

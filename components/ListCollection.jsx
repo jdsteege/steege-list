@@ -2,7 +2,7 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Grid, GridColumn } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
 //
 import { db } from "../js/dexie-db";
@@ -39,9 +39,11 @@ export default function ListCollection(props) {
   }
 
   const summaries = lists.map((listInfo) => (
-    <div key={listInfo.listId}>
+    // <div key={listInfo.listId}>
+    <GridColumn key={listInfo.listId}>
       <ListSummary listInfo={listInfo} />
-    </div>
+    </GridColumn>
+    // </div>
   ));
 
   return (
@@ -56,9 +58,11 @@ export default function ListCollection(props) {
           action={<Button color="teal">Add List</Button>}
         />
       </Form>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+      {/* <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}> */}
+      <Grid doubling stackable columns={4}>
         {summaries}
-      </div>
+      </Grid>
+      {/* </div> */}
     </>
   );
 }

@@ -27,8 +27,6 @@ export default function ListDisplay(props) {
     db.items.where("itemListId").equals(props.listId).sortBy("sortPos")
   );
 
-  console.log("a " + list);
-
   function nextSortPos() {
     if (!items || items.length <= 0) {
       return 0;
