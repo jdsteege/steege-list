@@ -1,19 +1,7 @@
 //
 import { useLiveQuery } from "dexie-react-hooks";
 import { useState } from "react";
-import {
-  Button,
-  Checkbox,
-  Input,
-  List,
-  Segment,
-  Form,
-  Divider,
-  Header,
-  Grid,
-  Container,
-  Label,
-} from "semantic-ui-react";
+import { Button, Form, Grid } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
 //
 import { db } from "../js/dexie-db";
@@ -32,11 +20,14 @@ export default function ListDisplay(props) {
       .equals(props.listId)
       .first((l) => {
         setListName(l.listName);
+        return l;
       })
   );
   const items = useLiveQuery(() =>
     db.items.where("itemListId").equals(props.listId).sortBy("sortPos")
   );
+
+  console.log("a " + list);
 
   function nextSortPos() {
     if (!items || items.length <= 0) {

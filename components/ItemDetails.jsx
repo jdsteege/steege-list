@@ -29,30 +29,32 @@ export default function ItemDetails(props) {
       </td>
 
       <td style={{ width: "100%" }}>
-        <TextAreaAutosize
-          value={label}
-          textColor={props.itemInfo.isComplete ? "#aaa" : "#000"}
-          onValueChange={(newValue) => {
-            setLabel(newValue);
-          }}
-          onFocus={() => {
-            setIsFocused(true);
-          }}
-          onBlur={() => {
-            db.items.update(props.itemInfo.itemId, { label: label });
-            setIsFocused(false);
-          }}
-        />
+        <div style={{ display: "flex" }}>
+          <TextAreaAutosize
+            value={label}
+            textColor={props.itemInfo.isComplete ? "#aaa" : "#000"}
+            onValueChange={(newValue) => {
+              setLabel(newValue);
+            }}
+            onFocus={() => {
+              setIsFocused(true);
+            }}
+            onBlur={() => {
+              db.items.update(props.itemInfo.itemId, { label: label });
+              setIsFocused(false);
+            }}
+          />
 
-        <div className="ui buttons" w="50px" spacing="0.5">
-          {isFocused && (
-            <>
-              {/* <EditItemButton></EditItemButton> */}
-              <DragItemButton></DragItemButton>
-            </>
-          )}
+          <div className="ui buttons" w="50px" spacing="0.5">
+            {isFocused && (
+              <>
+                {/* <EditItemButton></EditItemButton> */}
+                <DragItemButton></DragItemButton>
+              </>
+            )}
+          </div>
         </div>
-        <div className="ui fitted divider"></div>
+        <Divider fitted />
       </td>
     </tr>
   );
